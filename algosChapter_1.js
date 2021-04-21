@@ -162,7 +162,7 @@ console.log("Fibonacci sum for", n, "is: ", Fibonacci);
 */
 
 // Last Digit of A to the B (a^b)
-
+/*
 function lastDigitAtoB(a,b) {
     var product = 1;
     for (var i = 0; i < b; i++){
@@ -174,3 +174,32 @@ function lastDigitAtoB(a,b) {
 }
 var answer = lastDigitAtoB(11,11);
 console.log("...therefore the final digit is", answer);
+*/
+
+// Clock Hand Angles
+
+function clockHandAngles(seconds) {  
+    if (seconds > 86400){  // the time and angle calculations work past 24 hours, but the AM/PM assignments and hour == 12 assignments get a little trickier; 
+        console.log(`Please enter a value less than 86,400 seconds, which means less than a full day.`);
+        return;
+    }
+    let secs = (seconds % 60);
+    console.log(`At ${seconds} seconds after midnight: \n\tThe second hand will be at ${secs} tics and ${secs * 6} degrees from 12AM on the clock.`);
+    let mins = 0;
+    mins = Math.floor((seconds / 60) % 60); 
+    console.log(`\tThe minute hand will be at ${mins} tics and ${mins * 6} degrees from 12AM on the clock.`);
+    let hors = 0;
+    let horsFloor = Math.floor((seconds / 3600) % 12);
+    let horsCeil = Math.ceil((seconds / 3600) % 12);
+    let horsDegr = (horsFloor * 30) + (mins / 60 * 30); // (number of horsFloor * number of degress per hour) + (fraction of minutes to hour * number of degress per hour)
+    var ampm = "AM";
+    if (seconds/43199 > 1) {
+        ampm = "PM";
+        if (horsFloor == 0) {  // Deal with fact that horsFloor becomes equal to zero at noontime; just add 12 back when this is case. 
+            horsFloor = horsFloor + 12;
+        }
+    }
+    console.log(`\tThe hour hand will be between ${horsFloor} and ${horsCeil}, showing ${horsDegr} degrees from 12AM on the clock.`);
+    console.log(`\t${horsFloor}:${mins}:${secs}${ampm}`)
+}
+clockHandAngles(65413);
